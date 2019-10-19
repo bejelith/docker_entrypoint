@@ -10,4 +10,4 @@ Create a template file in golang template format and save it as file.template
 ### Run
 
 `$ export file_VAR=value`  
-`$ cmd -template file.template /bin/cat file`
+`$ cmd -template file.template /bin/sleep 1`
