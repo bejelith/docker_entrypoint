@@ -33,10 +33,4 @@ ENTRYPOINT ["/docker_entrypoint", "-template", "/etc/server/server.properties", 
 ```
 Remember to pass the `-template` parameter to the `/docker_template` executable then pass your executable as first argument after the template list. All following arguments will be passed to your binary of choice.
 
-
-
-
-### Run
-
-`$ export file_VAR=value`  
-`$ cmd -template file.template /bin/sleep 1`
+Now build your dockerfile and run it!
