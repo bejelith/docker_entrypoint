@@ -29,8 +29,9 @@ ENV SERVER_PROPERTIES_LISTEN_ADDRESS="localhost"
 ENV SERVER_PROPERTIES_LISTEN_PORT=8080
 ENV SERVER_PROPERTIES_ID=1
 
-ENTRYPOINT ["/docker_entrypoint", "-template", "/etc/server/server.properties", "bin/yoursever.bin", "-server_log_dir /var/log/yourserver"]
+ENTRYPOINT ["/docker_entrypoint", "-template", "/etc/server/server.properties.template", "bin/yoursever.bin", "-server_log_dir /var/log/yourserver"]
 ```
+Each template has to be created with a `.template` extension as the entrypoing will remove it when rendering the file.  
 Remember to pass the `-template` parameter to the `/docker_template` executable then pass your executable as first argument after the template list. All following arguments will be passed to your binary of choice.
 
 Now build your dockerfile and run it!
