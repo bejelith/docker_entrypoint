@@ -1,5 +1,5 @@
 bin/docker_entrypoint: bin
-	go build -o $@ ./go/docker_entrypoint
+	cd go/cmd && go build -o $@
 
 bin:
 	mkdir bin
