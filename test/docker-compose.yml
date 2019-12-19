@@ -1,0 +1,13 @@
+version: '3'
+
+networks:
+  integration-tests:
+    driver: bridge
+
+services:
+  docker_entrypoint_tests:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.test
+    volumes:
+      - $PWD/../go:/src

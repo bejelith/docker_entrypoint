@@ -1,12 +1,13 @@
 package render
 
 import (
-	"docker_template/go/template"
 	"fmt"
 	"os"
 	pathutils "path"
 	"regexp"
 	"strings"
+
+	"github.com/bejelith/docker_entrypoint/template"
 )
 
 var templateExtension = ".template"
@@ -43,7 +44,7 @@ func getEnvironVars(filterString string) map[string]string {
 	for _, e := range os.Environ() {
 		pair := strings.SplitAfterN(e, "=", 2)
 		if regex.MatchString(pair[0]) {
-			vars[pair[0][len(filterString) + 1:len(pair[0])-1]] = pair[1]
+			vars[pair[0][len(filterString)+1:len(pair[0])-1]] = pair[1]
 		}
 	}
 	return vars

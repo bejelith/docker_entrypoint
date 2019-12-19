@@ -1,0 +1,6 @@
+FROM golang:1.13-alpine
+
+WORKDIR /src/
+
+CMD ls -l /src/
+CMD go test ./... -v

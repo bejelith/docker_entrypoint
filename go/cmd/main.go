@@ -1,11 +1,12 @@
 package main
 
 import (
-	"docker_template/go/render"
 	"flag"
 	"fmt"
 	"os"
 	"syscall"
+
+	"github.com/bejelith/docker_entrypoint/render"
 )
 
 var (
@@ -15,7 +16,7 @@ var (
 
 func init() {
 	standardUsageFunc := flag.Usage
-	flag.Usage = func(){
+	flag.Usage = func() {
 		standardUsageFunc()
 		_, _ = fmt.Fprintf(os.Stderr, "Command line arguments are executed after template generation\n")
 	}
@@ -36,9 +37,7 @@ func main() {
 			fmt.Printf("Error running Exec for %s: %s\n", args[0], err)
 			os.Exit(2)
 		}
-	}else{
+	} else {
 		fmt.Println("Nothing to execute, exiting")
 	}
 }
-
-
