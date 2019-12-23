@@ -1,10 +1,17 @@
 # docker_entrypoint
 Templating engine for docker images
 
+Did you have to spend time in finding out to configure a random docker image you just downloaded from Docker registry?  
+
+Wouldn't be nice having the same ENV variable be the same across images without the need of replacing entirelly the whole congiguration file or having to dig `docker inspect` and just run an help command?
+
 Docker entrypoint manages your configuration file templates rendering them from environemnt variables values. 
 
 For example, setting Kafka's broker ID would be as simple as setting an environment variable  
-`docker run --name kafka -e SERVER_PROPERPERTIES_BROKER_ID = 1 mykafka-image`
+`docker run -d --name kafka -e SERVER_PROPERPERTIES_BROKER_ID = 1 mykafka-image`
+
+and gives users an easy way to access all configuration variables with a `help` command:  
+`docker run -ti --rm mykafka-image --help
 
 ## Dependencies
 1. make 
