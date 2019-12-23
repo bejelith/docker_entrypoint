@@ -1,6 +1,11 @@
 # docker_entrypoint
 Templating engine for docker images
 
+Docker entrypoint manages your configuration file templates rendering them from environemnt variables values. 
+
+For example, setting Kafka's broker ID would be as simple as setting an environment variable 
+`docker run --name kafka -e SERVER_PROPERPERTIES_BROKER_ID = 1 mykafka-image`
+
 ## Dependencies
 1. make 
 2. go 1.11 or newer
@@ -11,7 +16,7 @@ to build the base docker_entrypoing image run
 
 ## Usage
 ### Build a configuration file 
-Create a template configuration file `server.properties` like the following  
+Create a template configuration file `server.properties.template` like the following  
 ```
 server_address={{ .LISTEN_ADDRESS }}
 server_port={{ .LISTEN_PORT }}
