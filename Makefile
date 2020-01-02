@@ -1,5 +1,5 @@
 bin/docker_entrypoint: bin
-	cd go/cmd && go build -o $@
+	cd go/cmd && go build -o ../../$@
 
 bin:
 	mkdir bin
@@ -10,5 +10,7 @@ install:
 docker:
 	docker build --no-cache -t docker_entrypoint .
 
-
-.PHONY: install docker
+clean:
+	rm -rf bin \
+	docker rmi docker_entrypoint:latest
+.PHONY: install docker clean
