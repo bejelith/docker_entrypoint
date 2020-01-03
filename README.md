@@ -1,16 +1,16 @@
 # docker_entrypoint
 Templating engine for docker images
 
-Did you have to spend time in finding out to configure a random docker image you just downloaded from Docker registry?  
+Did you have to spend time in finding out to configure a random docker image you just downloaded from Docker registry?
 
-Wouldn't be nice having the same ENV variable be the same across images without the need of replacing entirelly the whole congiguration file or having to dig `docker inspect` and just run an help command?
+Wouldn't be nice having the same ENV variable be the same across images without the need of replacing entirelly the whole configuration file or having to dig `docker inspect` and just run an help command?
 
-Docker entrypoint manages your configuration file templates rendering them from environemnt variables values. 
+Docker entrypoint manages your configuration file templates rendering them from environemnt variables values.
 
-For example, setting Kafka's broker ID would be as simple as setting an environment variable  
+For example, setting Kafka's broker ID would be as simple as setting an environment variable
 `docker run -d --name kafka -e SERVER_PROPERPERTIES_BROKER_ID = 1 mykafka-image`
 
-and gives users an easy way to access all configuration variables with a `help` command:  
+and gives users an easy way to access all configuration variables with a `help` command:
 `docker run -ti --rm mykafka-image --help
 
 ## Dependencies
@@ -23,20 +23,20 @@ to build the base docker_entrypoing image run
 
 ## Usage
 ### Build a configuration file 
-Create a template configuration file `server.properties.template` like the following  
+Create a template configuration file `server.properties.template` like the following
 ```
 server_address={{ .LISTEN_ADDRESS }}
 server_port={{ .LISTEN_PORT }}
 id={{ .ID }}
 ```
 ### Example dockerfile
-The build your image using docker_entrypoint as first stage of a multi-stage build:  
+The build your image using docker_entrypoint as first stage of a multi-stage build:
 ```
 FROM docker_entrypoint as entrypoint
 FROM alpine #OR YOU FAVOURITE BASE IMAGE
 COPY --from=entrypoint /docker_entrypoint /docker_entrypoint
 RUN ...
-MKDIR ...
+RUN mkdir ...
 ENV SERVER_PROPERTIES_LISTEN_ADDRESS="localhost"
 ENV SERVER_PROPERTIES_LISTEN_PORT=8080
 ENV SERVER_PROPERTIES_ID=1
