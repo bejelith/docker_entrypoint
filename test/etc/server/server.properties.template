@@ -1,0 +1,3 @@
+server_address={{ .LISTEN_ADDRESS }}
+server_port={{ .LISTEN_PORT }}
+id={{ .ID }}

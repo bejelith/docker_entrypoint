@@ -16,7 +16,7 @@ func New(templatePath string, outputPath string, vars map[string]string) Templat
 	t := Template{
 		vars,
 		templatePath,
-		trimExtension(outputPath),
+		outputPath,
 	}
 	return t
 }

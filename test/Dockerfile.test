@@ -1,6 +1,14 @@
 FROM golang:1.13-alpine
 
 WORKDIR /src/
+COPY ./go /src
 
-CMD ls -l /src/
+WORKDIR go
+RUN go build -o /docker_entrypoint github.com/bejelith/docker_entrypoint/cmd
+
+ENV SERVER_PROPERTIES_LISTEN_ADDRESS="localhost"
+ENV SERVER_PROPERTIES_LISTEN_PORT=8080
+ENV SERVER_PROPERTIES_ID=1
+
+WORKDIR /src/
 CMD go test ./... -v
