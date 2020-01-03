@@ -14,12 +14,17 @@ var templateExtension = ".template"
 
 func ExecTemplates(paths ...string) error {
 	for _, path := range paths {
-		fmt.Println(path)
 		if !strings.HasSuffix(path, templateExtension) {
 			return fmt.Errorf("%s is not a .template file", path)
 		}
 		destPath := removeExtension(path)
-		envVars := getEnvironVars(replaceWithUnderscore(destPath))
+
+		filterString := strings.ToUpper(replaceWithUnderscore(destPath))
+		envVars, err := getEnvironVars(filterString)
+		if err != nil {
+			return fmt.Errorf("error getting environment variables for %s: %s", filterString, err)
+		}
+
 		t := template.New(path, destPath, envVars)
 		if err := t.Write(); err != nil {
 			return fmt.Errorf("error rendering template %s: %s", path, err)
@@ -38,14 +43,21 @@ func removeExtension(path string) string {
 	return path[:len(path)-len(templateExtension)]
 }
 
-func getEnvironVars(filterString string) map[string]string {
-	regex, _ := regexp.Compile("^" + filterString + "_")
+func getEnvironVars(filterString string) (map[string]string, error) {
+	prefix := fmt.Sprintf("%s_", filterString)
+	filter := fmt.Sprintf("^%s", prefix)
+	regex, err := regexp.Compile(filter)
+
+	if err != nil {
+		return nil, err
+	}
+
 	vars := make(map[string]string)
 	for _, e := range os.Environ() {
-		pair := strings.SplitAfterN(e, "=", 2)
+		pair := strings.Split(e, "=")
 		if regex.MatchString(pair[0]) {
-			vars[pair[0][len(filterString)+1:len(pair[0])-1]] = pair[1]
+			vars[pair[0][len(prefix):]] = pair[1]
 		}
 	}
-	return vars
+	return vars, nil
 }

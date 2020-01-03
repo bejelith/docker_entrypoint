@@ -7,7 +7,10 @@ networks:
 services:
   docker_entrypoint_tests:
     build:
-      context: .
-      dockerfile: ./Dockerfile.test
+      context: ..
+      dockerfile: ./test/Dockerfile.test
+  docker_entrypoint_integration:
+    image: test_docker_entrypoint_tests
+    command: ["/docker_entrypoint","-template","/etc/server/server.properties.template"]
     volumes:
-      - $PWD/../go:/src
+      - $PWD/etc/server:/etc/server
