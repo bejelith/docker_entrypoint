@@ -11,6 +11,6 @@ services:
       dockerfile: ./test/Dockerfile.test
   docker_entrypoint_integration:
     image: test_docker_entrypoint_tests
-    command: ["/docker_entrypoint","-template","/etc/server/server.properties.template"]
+    command: ["/docker_entrypoint","-template","/etc/server/server.properties.template","/bin/cat","/etc/server/server.properties"]
     volumes:
       - $PWD/etc/server:/etc/server
