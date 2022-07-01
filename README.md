@@ -33,10 +33,12 @@ id={{ .ID }}
 The environment vars hare composed by a PREFIX which identifies the template the variable is referring to and a POSTFIX which represents the varible inside the template eg.
 
 To render a template named testfile.config.template containing a variable named ID the corrent ENV variable will need to look like this:
-`testfile_config_ID=1`. This is to support multiple templates for a single run, for exaple for Java applications that depend on mulitple `.properties` files (log4j2.properties, server.properties, ...), example:
-`docker_entrypoint -template /config/log4j2.properties -template /config/server.properties java -jar ...`
+`testfile_config_ID=1`. This is to support multiple templates for a single run, for exaple for Java applications that depend on mulitple `.properties` files (log4j2.properties, server.properties, ...).
 
-After the rendering is done the output of `testfile.config.template` will be in `testfile.config`
+Example:  
+`docker_entrypoint -template /config/log4j2.properties.template -template /config/server.properties.template java -jar ...`
+
+After the templates are processed the output of `/config/log4j2.properties.template` will be written in `/config/log4j2.properties` for each invocation
 
 ### Example dockerfile
 The build your image using docker_entrypoint as first stage of a multi-stage build:  
