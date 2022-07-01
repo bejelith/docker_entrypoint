@@ -1,13 +1,12 @@
 bin/docker_entrypoint: bin
-	cd go/cmd && go build -o $@
-
+	go build -o bin/ ./...
+	mv bin/cmd bin/docker_entrypoint
 bin:
-	mkdir bin
+	mkdir -p bin
 
-install:
-	go install ./...
+install: bin/docker_entrypoint
 
-docker:
+docker: install
 	docker build --no-cache -t docker_entrypoint .
 
 
