@@ -29,6 +29,12 @@ server_address={{ .LISTEN_ADDRESS }}
 server_port={{ .LISTEN_PORT }}
 id={{ .ID }}
 ```
+#### ENVORNMENT VARS Spec
+The environment vars hare composed by a PREFIX which identifies the template the variable is referring to and a POSTFIX which represents the varible inside the template eg.
+
+To render a template named testfile.config containing a variable named ID the corrent ENV variable will need to look like this:
+`testfile_config_ID=1`
+
 ### Example dockerfile
 The build your image using docker_entrypoint as first stage of a multi-stage build:  
 ```
