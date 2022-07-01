@@ -32,8 +32,10 @@ id={{ .ID }}
 #### ENVORNMENT VARS Spec
 The environment vars hare composed by a PREFIX which identifies the template the variable is referring to and a POSTFIX which represents the varible inside the template eg.
 
-To render a template named testfile.config containing a variable named ID the corrent ENV variable will need to look like this:
+To render a template named testfile.config.template containing a variable named ID the corrent ENV variable will need to look like this:
 `testfile_config_ID=1`
+
+After the rendering is done the output of `testfile.config.template` will be in `testfile.config`
 
 ### Example dockerfile
 The build your image using docker_entrypoint as first stage of a multi-stage build:  
