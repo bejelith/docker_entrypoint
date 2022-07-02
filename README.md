@@ -48,9 +48,9 @@ FROM alpine #OR YOU FAVOURITE BASE IMAGE
 COPY --from=entrypoint /docker_entrypoint /docker_entrypoint
 RUN ...
 MKDIR ...
-ENV SERVER_PROPERTIES_LISTEN_ADDRESS="localhost"
-ENV SERVER_PROPERTIES_LISTEN_PORT=8080
-ENV SERVER_PROPERTIES_ID=1
+ENV server_properties_LISTEN_ADDRESS="localhost"
+ENV server_properties_LISTEN_PORT=8080
+ENV server_properties_ID=1
 
 ENTRYPOINT ["/docker_entrypoint", "-template", "/etc/server/server.properties.template", "bin/yoursever.bin", "-server_log_dir /var/log/yourserver"]
 ```
