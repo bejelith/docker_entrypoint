@@ -7,10 +7,11 @@ import (
 	"syscall"
 
 	"github.com/bejelith/docker_entrypoint/pkg/render"
+	"github.com/bejelith/docker_entrypoint/pkg/template"
 )
 
 var (
-	templates StringValue
+	templatesArgs StringValue
 	//commandLine *flag.FlagSet
 )
 
@@ -20,14 +21,16 @@ func init() {
 		standardUsageFunc()
 		_, _ = fmt.Fprintf(os.Stderr, "Command line arguments are executed after template generation\n")
 	}
-	flag.Var(&templates, "template", "Templates to render, can be more than one")
+	flag.Var(&templatesArgs, "template", "Templates to render, can be more than one")
 }
 
 func main() {
 	flag.Parse()
 	args := flag.Args()
 
-	if err := render.ExecTemplates(templates...); err != nil {
+	if templates, err := template.New(templatesArgs...); err == nil {
+		render.ExecTemplates(templates...)
+	} else {
 		fmt.Println(err)
 		os.Exit(1)
 	}

@@ -1,10 +1,14 @@
 package template
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 	gotemplate "text/template"
 )
+
+var templateExtension = ".template"
 
 type Template struct {
 	vars       map[string]string
@@ -12,13 +16,27 @@ type Template struct {
 	destPath   string
 }
 
-func New(templatePath string, outputPath string, vars map[string]string) Template {
+func new(templatePath string, outputPath string, vars map[string]string) Template {
 	t := Template{
 		vars:       vars,
 		sourcePath: templatePath,
 		destPath:   outputPath,
 	}
 	return t
+}
+
+func New(paths ...string) ([]*Template, error) {
+	templates := []*Template{}
+	for _, path := range paths {
+		if !strings.HasSuffix(path, templateExtension) {
+			return nil, fmt.Errorf("%s is not a .template file", path)
+		}
+		destPath := removeExtension(path)
+		envVars := getEnvironVars(replaceWithUnderscore(destPath))
+		t := new(path, destPath, envVars)
+		templates = append(templates, &t)
+	}
+	return templates, nil
 }
 
 func (t *Template) Write() error {

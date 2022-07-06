@@ -23,10 +23,10 @@ func TestMain(m *testing.M) {
 
 func mockFile(content []byte) (string, error) {
 	if tempFile, err := os.Create(tempDir + "/file.temp"); err == nil {
-		defer func (){ _ = tempFile.Close() }()
+		defer func() { _ = tempFile.Close() }()
 		_, err = tempFile.Write(content)
 		return tempFile.Name(), err
-	}else{
+	} else {
 		return "", err
 	}
 }
@@ -42,9 +42,9 @@ func TestTemplate(t *testing.T) {
 		t.Fatal(err)
 	}
 	vars := map[string]string{
-		testVar : testVal,
+		testVar: testVal,
 	}
-	template := New(templatePath, templatePath, vars)
+	template := new(templatePath, templatePath, vars)
 	if err := template.WriteToPath(resultPath); err != nil {
 		t.Fatal(err)
 	}
@@ -69,5 +69,12 @@ func TestTrimExtension(t *testing.T) {
 		if trimExtension(k) != v {
 			t.Fatalf("Received %s, expected %s", k, v)
 		}
+	}
+}
+func TestGetEnvironVars(t *testing.T) {
+	_ = os.Setenv("A_B_C", "1")
+	vars := getEnvironVars("A")
+	if vars["B_C"] != "1" {
+		t.Fatalf("%v", vars)
 	}
 }
