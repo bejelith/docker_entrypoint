@@ -58,3 +58,6 @@ Each template has to be created with a `.template` extension as the entrypoing w
 Remember to pass the `-template` parameter to the `/docker_template` executable then pass your executable as first argument after the template list. All following arguments will be passed to your binary of choice.
 
 Now build your dockerfile and run it!
+
+# Better code badge
+[![BCH compliance](https://bettercodehub.com/edge/badge/bejelith/docker_entrypoint?branch=master)](https://bettercodehub.com/)
